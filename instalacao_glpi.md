@@ -103,7 +103,8 @@ cat << EOF | sudo tee /etc/apache2/sites-available/glpi.conf
         RewriteCond %{REQUEST_FILENAME} !-f
         RewriteRule ^(.*)$ index.php [QSA,L]
     </Directory>
-</VirtualHost>EOF
+</VirtualHost>
+EOF
 ```
 - 3.4 Habilita o virtualhost
 
