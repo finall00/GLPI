@@ -41,6 +41,7 @@ sudo apt install -y \
 	php-xmlreader \
 	php-xmlwriter \
 	php-curl \
+	php-xmlrpc \
 	php-gd \
 	php-intl \
 	php-mysqli   \
