@@ -30,27 +30,44 @@ sudo reboot
 
 ```bash
 sudo apt install -y \
-	apache2 \
-	mariadb-server \
-	mariadb-client \
-	libapache2-mod-php \
-	php-dom \
-	php-fileinfo   \
-	php-json \
-	php-simplexml \
-	php-xmlreader \
-	php-xmlwriter \
-	php-curl \
-	php-xmlrpc \
-	php-gd \
-	php-intl \
-	php-mysqli   \
-	php-bz2  \
-	php-zip \
-	php-exif \
-	php-ldap  \
-	php-opcache \
-	php-mbstring
+    apache2 \
+    mariadb-server \
+    mariadb-client \
+    libapache2-mod-php \
+    php-dom \
+    php-fileinfo \
+    php-json \
+    php-simplexml \
+    php-xmlreader \
+    php-xmlwriter \
+    php-curl \
+    php-gd \
+    php-intl \
+    php-mysqli \
+    php-bz2 \
+    php-zip \
+    php-exif \
+    php-ldap \
+    php-opcache \
+    php-mbstring \
+    php-cas \
+    php-apcu \
+    php-xmlrpc \
+    php-imap \
+    php-memcache \
+    php-pear \
+    php-imagick \
+    php-pspell \
+    php-mysql \
+    php-tidy \
+    php-soap \
+    php-common \
+    php-bcmath \
+    xmlrpc-api-utils \
+    xz-utils \
+    bzip2 \
+    unzip \
+    curl
 ```
 
 - 2.5 Criando e configurando Banco de Dados do GLPI
