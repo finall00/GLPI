@@ -79,32 +79,51 @@ sudo mysql -e "GRANT SELECT ON mysql.time_zone_name TO 'glpiuser'@'localhost'"
 sudo mysql -e "FLUSH PRIVILEGES"
 ```
 
-- 2.6 Carregar timezones no MySQL 
-
-```bash
-mysql_tzinfo_to_sql /usr/share/zoneinfo | sudo mysql -u root mysql
-```
-
 
 - - - 
 
 ## Instalando e GLPI
 
 
-- 3. Desabilitar o site padrão do apache2
+- 3.1 Download do glpi
+
+```bash
+wget -q https://github.com/glpi-project/glpi/releases/download/10.0.18/glpi-10.0.18.tgz
+```
+
+- 3.2 Descompactando GLPI 
+
+```bash
+tar -zxf glpi-*
+```
+
+- 3.3 Movendo a pasta para htdocs
+
+```bash
+sudo mv glpi /var/www/glpi
+```
+
+- 3.4 Comfigurando permissoes do glpi 
+
+```bash
+sudo chown -R www-data:www-data /var/www/glpi/
+```
+
+
+- 3.5 Desabilitar o site padrão do apache2
 
 ```bash 
 sudo a2dissite 000-default.conf
 ```
 
-- 3.2 Habilita session.cookie_httponly
+- 3.6 Habilita `session.cookie_httponly`
 
 ```bash
 sudo sed -i 's/^session.cookie_httponly =/session.cookie_httponly = on/' /etc/php/*/apache2/php.ini && \
 	sudo sed -i 's/^;date.timezone =/date.timezone = America\/Sao_Paulo/' /etc/php/*/apache2/php.ini
 ```
 
-- 3.3 Criar o virtualhost do GLPI
+- 3.7 Criar o **virtualhost** do GLPI
 
 ```bash
 cat << EOF | sudo tee /etc/apache2/sites-available/glpi.conf
@@ -116,53 +135,28 @@ cat << EOF | sudo tee /etc/apache2/sites-available/glpi.conf
         Require all granted
         RewriteEngine On
 
-        # Redireciona todas as requisições para o roteador do GLPI, a menos que o arquivo exista
         RewriteCond %{REQUEST_FILENAME} !-f
         RewriteRule ^(.*)$ index.php [QSA,L]
     </Directory>
 </VirtualHost>
 EOF
 ```
-- 3.4 Habilita o virtualhost
+
+- 3.8 Habilita o virtualhost
 
 ```bash
 sudo a2ensite glpi.conf
 ```
-- 3.5 Habilitar módulos do Apache necessários
+- 3.9 Habilitar módulos do Apache necessários
 
 ```bash
 sudo a2enmod rewrite
 ```
 
-- 3.6 Reiniciando o apache 
+- 3.10 Reiniciando o apache 
 
 ```bash
 sudo systemctl restart apache2
-```
-
-
-- 3.7 Download do glpi
-
-```bash
-wget -q https://github.com/glpi-project/glpi/releases/download/10.0.18/glpi-10.0.18.tgz
-```
-
-- 3.8 Descompactando GLPI 
-
-```bash
-tar -zxf glpi-*
-```
-
-- 3.9 Movendo a pasta para htdocs
-
-```bash
-sudo mv glpi /var/www/glpi
-```
-
-- 3.10 Comfigurando permissoes do glpi 
-
-```bash
-sudo chown -R www-data:www-data /var/www/glpi/
 ```
 
 
@@ -180,6 +174,13 @@ sudo php /var/www/html/glpi/bin/console db:install  \
 
 ```
 
+> [!Warning]
+> Essa parte pode levar um bom tempo então tenha paciencia
+
+- 3.12 Reinicie o sistema
+```bash
+sudo reboot
+```
 ## 4 Configurações de segurança 
 
 - 4.1 Remove o arquivo  de instalação 
@@ -228,7 +229,7 @@ EOF
 - 4.3. Remover os usuários glpi, normal, post-only, tech.
 - 4.3.1. Enviar os usuários para a lixeira
 - 4.3.2. Remover permanentemente
-- 4.3.4. Configurar a url de acesso ao sistema em: Configurar -> Geral -> Configuração Geral -> URL da aplicação.
+- 4.3.4. Configurar a **URL** de acesso ao sistema em: **Configurar** -> **Geral** -> **Configuração Geral** -> U**RL da aplicação.**
 
 
 
